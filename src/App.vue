@@ -1,22 +1,34 @@
 <template>
   <div id="app">
-    <router-view />
+    <m-header></m-header>
+    <tab></tab>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <player></player>
   </div>
 </template>
 
 <script>
+import MHeader from "@/components/m-header/m-header";
+import Tab from "@/components/tab/tab";
+import Player from "@/components/player/player";
 export default {
-  name: "App"
+  components: {
+    MHeader,
+    Player,
+    Tab
+  }
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "~@/assets/scss/index.scss";
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

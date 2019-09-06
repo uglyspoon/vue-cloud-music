@@ -9,15 +9,27 @@ const Recommend = resolve => {
   });
 };
 
+const Ablum = resolve => {
+  import("@/pages/ablum/ablum").then(module => {
+    resolve(module);
+  });
+};
+
 export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/recommend",
+      redirect: "/recommend"
     },
     {
       path: "/recommend",
       component: Recommend,
-    },
-  ],
+      children: [
+        {
+          path: ":id",
+          component: Ablum
+        }
+      ]
+    }
+  ]
 });

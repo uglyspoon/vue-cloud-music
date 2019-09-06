@@ -15,28 +15,30 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll';
+import BScroll from "better-scroll";
 export default {
-  data: {
-    dots: [],
-    currentIndex: 0,
+  data() {
+    return {
+      dots: [],
+      currentPageIndex: 0
+    };
   },
   props: {
     // 循环轮播
     loop: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 自动轮播
     autoPlay: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 间隔
     interval: {
       type: Number,
-      default: 4000,
-    },
+      default: 4000
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -45,7 +47,7 @@ export default {
       this._initSlider();
       this._onScrollEnd();
     }, 20);
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (!this.slider) {
         return;
       }
@@ -60,14 +62,14 @@ export default {
       for (let i = 0; i < this.children.length; i++) {
         const child = this.children[i];
         // addClass(child, 'slider-item')
-        child.classList.add('slider-item');
-        child.style.width = sliderWidth + 'px';
+        child.classList.add("slider-item");
+        child.style.width = sliderWidth + "px";
         width += sliderWidth;
       }
       if (this.loop) {
         width += 2 * sliderWidth;
       }
-      this.$refs.sliderGroup.style.width = width + 'px';
+      this.$refs.sliderGroup.style.width = width + "px";
     },
     _initSlider() {
       this.slider = new BScroll(this.$refs.slider, {
@@ -77,14 +79,14 @@ export default {
         snap: {
           loop: this.loop,
           threshold: 0.3,
-          speed: 400,
+          speed: 400
         },
         snapSpeed: 400,
         bounce: false,
         stopPropagation: true,
-        click: true,
+        click: true
       });
-      this.slider.on('scrollEnd', this._onScrollEnd);
+      this.slider.on("scrollEnd", this._onScrollEnd);
     },
     _onScrollEnd() {
       let pageIndex = this.slider.getCurrentPage().pageX;
@@ -101,18 +103,21 @@ export default {
     },
     _initDots() {
       this.dots = new Array(this.children.length);
-    },
+    }
   },
   destroyed() {
     clearTimeout(this.timer);
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
-@import '~@/assets/scss/variable';
+@import "~@/assets/scss/variable";
 .slider {
-  min-height: 1px;
   position: relative;
+  width: 96%;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
   .slider-group {
     position: relative;
     overflow: hidden;
